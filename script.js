@@ -27,10 +27,36 @@ adds.addEventListener("click",function(event){
         container.append(divs)
         popuplay.style.display = "none"
         popupbox.style.display = "none"
+
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks.push({
+            title: tasktitle.value,
+            date: date.value,
+            description: description.value
+        });
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+
+
     }
     
 
 })
+
+
+window.addEventListener("DOMContentLoaded", function() {
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks.forEach(task => {
+        let divs = document.createElement("div");
+        divs.setAttribute("class", "task");
+        divs.innerHTML = `<h3 id="taskname">${task.title}</h3>
+            <h2 id="taskdate">${task.date}</h2>
+            <p id="taskdetail">${task.description}</p>
+            <button class="taskdelete">Delete</button>`;
+        container.append(divs);
+    });
+});
+
+
 
 var cancel = document.getElementById("cancel")
 
@@ -41,8 +67,16 @@ cancel.addEventListener("click",function(event){
 
 })
 
-var taskdelete = document.querySelector(".taskdelete")
-function deletes(event){
-    event.target.parentElement.remove()
-    event.preventDefault()
-}
+container.addEventListener("click", function(event) {
+    if (event.target.classList.contains("taskdelete")) {
+        event.preventDefault();
+        let taskDiv = event.target.parentElement;
+        let taskTitle = taskDiv.querySelector("#taskname").innerText;
+        
+        
+        taskDiv.remove();
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks = tasks.filter(task => task.title !== taskTitle);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+});
