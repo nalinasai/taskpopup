@@ -13,7 +13,22 @@
                 <span class="brand-mark">Q</span>
                 <h1>QuickTask</h1>
             </div>
-            <span class="nav-tag">Your plan, simplified</span>
+
+            <div class="nav-actions">
+                <label class="sort-box" for="sort-by">
+                    <span>Sort</span>
+                    <select id="sort-by">
+                        <option value="date-asc">Oldest first</option>
+                        <option value="date-desc">Newest first</option>
+                    </select>
+                </label>
+
+                <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+
+                <span class="nav-tag">Your plan, simplified</span>
+            </div>
         </div>
     </header>
 
@@ -28,6 +43,8 @@
 
     <div class="popupbox" role="dialog" aria-modal="true" aria-labelledby="popup-title">
         <form id="task-form">
+            <input type="hidden" id="task-id" value="">
+
             <div class="popup-header">
                 <h2 id="popup-title">Add New Task</h2>
             </div>
