@@ -7,37 +7,54 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="navbar">
-        <h1>QuickTask</h1>
-    </div>
-    <div class="container">
-        <div class="task">
-            <h3 id="taskname">Your Task</h3>
-            <h2 id="taskdate">20/02/2025</h2>
-            <p id="taskdetail">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus libero totam, aut dolorem velit cupiditate sunt amet nemo necessitatibus eaque.</p>
-            <button class="taskdelete" onclick="deletes(event)">Delete</button>
+    <header class="navbar">
+        <div class="nav-inner">
+            <div class="brand">
+                <span class="brand-mark">Q</span>
+                <h1>QuickTask</h1>
+            </div>
+            <span class="nav-tag">Your plan, simplified</span>
         </div>
+    </header>
 
-        
-    
-        
+    <main class="container" aria-label="Task list">
+        <div class="task task-empty">
+            <h3>No tasks yet</h3>
+            <p>Add your first task and stay on top of your day.</p>
+        </div>
+    </main>
 
+    <div class="popuplay" aria-hidden="true"></div>
 
-    </div>
-    
+    <div class="popupbox" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+        <form id="task-form">
+            <div class="popup-header">
+                <h2 id="popup-title">Add New Task</h2>
+            </div>
 
-    <div class="popuplay"></div>
-    <div class="popupbox">
-        <form>
-            <input type="text" placeholder="Add Task" id="task-title">
-            <input type="date"  id="Date">
-            <textarea  id="description" placeholder="Add the description"></textarea>
-            <button id="add">Add</button>
-            <button id="cancel">Cancel</button>
+            <label class="field">
+                <span>Task name</span>
+                <input type="text" placeholder="Add Task" id="task-title">
+            </label>
+
+            <label class="field">
+                <span>Due date</span>
+                <input type="date" id="Date">
+            </label>
+
+            <label class="field">
+                <span>Description</span>
+                <textarea id="description" placeholder="Add the description"></textarea>
+            </label>
+
+            <div class="form-actions">
+                <button type="button" id="cancel" class="btn btn-secondary">Cancel</button>
+                <button type="submit" id="add" class="btn btn-primary">Add</button>
+            </div>
         </form>
     </div>
 
-    <div class="buttonadd">+</div>
+    <button class="buttonadd" type="button" aria-label="Add task">+</button>
 
     <script src="script.js"></script>
 </body>
