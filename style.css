@@ -155,6 +155,23 @@ textarea {
     transition: transform 0.2s ease, background 0.2s ease;
 }
 
+.install-btn {
+    border: 1px solid var(--border);
+    background: var(--panel-soft);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 0.55rem 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.install-btn:hover {
+    transform: translateY(-1px);
+    background: rgba(91, 124, 255, 0.12);
+}
+
 .theme-toggle:hover {
     transform: translateY(-1px);
 }
@@ -482,6 +499,7 @@ body.dark-mode .popupbox {
     .nav-actions {
         width: 100%;
         justify-content: space-between;
+        flex-wrap: wrap;
     }
 
     .nav-tag {

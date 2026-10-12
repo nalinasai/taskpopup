@@ -14,6 +14,8 @@ var cancel = document.getElementById("cancel");
 var taskForm = document.getElementById("task-form");
 var sortBy = document.getElementById("sort-by");
 var themeToggle = document.getElementById("theme-toggle");
+var installBtn = document.getElementById("install-btn");
+var deferredInstallPrompt = null;
 
 function getTasks() {
     try {
@@ -42,6 +44,14 @@ function applyTheme(theme) {
 function initializeTheme() {
     const savedTheme = localStorage.getItem(THEME_KEY) || "light";
     applyTheme(savedTheme);
+}
+
+function registerServiceWorker() {
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js").catch(function () {
+            return null;
+        });
+    }
 }
 
 function sortTasks(tasks) {
@@ -181,6 +191,7 @@ adds.addEventListener("click", function (event) {
 
 window.addEventListener("DOMContentLoaded", function () {
     initializeTheme();
+    registerServiceWorker();
     renderTasks();
 });
 
@@ -199,6 +210,25 @@ if (themeToggle) {
         const nextTheme = isDark ? "light" : "dark";
         localStorage.setItem(THEME_KEY, nextTheme);
         applyTheme(nextTheme);
+    });
+}
+
+window.addEventListener("beforeinstallprompt", function (event) {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+    if (installBtn) {
+        installBtn.hidden = false;
+    }
+});
+
+if (installBtn) {
+    installBtn.addEventListener("click", async function () {
+        if (!deferredInstallPrompt) return;
+
+        deferredInstallPrompt.prompt();
+        await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        installBtn.hidden = true;
     });
 }
 
